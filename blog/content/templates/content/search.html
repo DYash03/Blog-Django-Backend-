@@ -1,0 +1,130 @@
+{% extends 'base.html' %} {% block body %}
+<div class="container">
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between bg-light">
+      <a class="p-2 text-muted" href="{%url 'content:blog_list'%}">All</a>
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Technology' %}"
+        >Technology</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Culture' %}"
+        >Culture</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Business' %}"
+        >Business</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Politics' %}"
+        >Politics</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Opinion' %}"
+        >Opinion</a
+      >
+      <a class="p-2 text-muted" href="{% url 'content:blog_category' 'Food' %}"
+        >Food</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Education' %}"
+        >Education</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Science' %}"
+        >Science</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Health' %}"
+        >Health</a
+      >
+      <a class="p-2 text-muted" href="{% url 'content:blog_category' 'Style' %}"
+        >Style</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Travel' %}"
+        >Travel</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Others' %}"
+        >Others</a
+      >
+    </nav>
+  </div>
+  <iframe
+    width="1108"
+    height="400"
+    src="{{update.url_embed}}"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+  <div class="row mb-2">
+    {% if blog|length < 1 %}
+    <div>
+      <p>Your search<b> - {{search}} - </b>did not match any documents.</p>
+      Suggestions:
+      <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+      </ul>
+    </div>
+    {% endif %} {% for i in blog reversed %}
+    <div class="col-md-6">
+      <div
+        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+      >
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary"
+            >{{i.category}}</strong
+          >
+          <h5 class="mb-0">{{i.blog_name}}</h5>
+          <div class="mb-1 text-muted">
+            {{i.pub_date}} , By - {{i.author}}
+          </div>
+          <p class="card-text mb-auto">
+            {{i.blog_description_1|truncatewords:10}}<b
+              >{{i.views_count}} Views</b
+            >
+          </p>
+          <div>
+            <a
+              href="{%url 'content:blog_read' i.slug %}"
+              class="btn btn-light border border-warning text-warning"
+              >Continue reading</a
+            >
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="200"
+            height="250"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+        </div>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+  </div>
+  <div class="row md-2">
+    {% endif %} {% endfor %}
+  </div>
+</div>
+{% endblock %}

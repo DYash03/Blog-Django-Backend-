@@ -1,0 +1,252 @@
+{% extends 'base.html' %} {% block body %}
+<div class="container">
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+      <a class="p-2 text-muted" href="{%url 'content:blog_list'%}">All</a>
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Technology' %}"
+        >Technology</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Culture' %}"
+        >Culture</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Business' %}"
+        >Business</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Politics' %}"
+        >Politics</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Opinion' %}"
+        >Opinion</a
+      >
+      <a class="p-2 text-muted" href="{% url 'content:blog_category' 'Food' %}"
+        >Food</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Education' %}"
+        >Education</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Science' %}"
+        >Science</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Health' %}"
+        >Health</a
+      >
+      <a class="p-2 text-muted" href="{% url 'content:blog_category' 'Style' %}"
+        >Style</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Travel' %}"
+        >Travel</a
+      >
+      <a
+        class="p-2 text-muted"
+        href="{% url 'content:blog_category' 'Others' %}"
+        >Others</a
+      >
+    </nav>
+    <iframe
+      width="1108"
+      height="400"
+      src="{{update.url_embed}}"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="row">
+    {% for i in pol %} {% if forloop.last %}
+    <div class="col-md-6">
+      <div>
+        <a href="{%url 'content:blog_read' i.slug %}">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="540"
+            height="300"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+          <div
+            class="carousel-caption d-sm-block text-primary font-weight-bold"
+          >
+            <h5>
+              {{i.category}}
+            </h5>
+            <p>{{i.blog_description_1|truncatewords:10}}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endif %} {% endfor %} {% for i in food %} {% if forloop.last %}
+    <div class="col-md-6">
+      <div>
+        <a href="{%url 'content:blog_read' i.slug %}">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="540"
+            height="300"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+          <div class="carousel-caption d-sm-block text-light font-weight-bold">
+            <h5>
+              {{i.category}}
+            </h5>
+            <p>{{i.blog_description_1|truncatewords:10}}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endif %} {% endfor %} {% for i in bus %} {% if forloop.last %}
+    <div class="col-md-6">
+      <div>
+        <a href="{%url 'content:blog_read' i.slug %}">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="540"
+            height="300"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+          <div
+            class="carousel-caption d-sm-block text-warning font-weight-bold"
+          >
+            <h5>
+              {{i.category}}
+            </h5>
+            <p>{{i.blog_description_1|truncatewords:10}}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endif %} {% endfor %} {% for i in edu %} {% if forloop.last %}
+    <div class="col-md-6">
+      <div>
+        <a href="{%url 'content:blog_read' i.slug %}">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="540"
+            height="300"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+        </a>
+        <div class="carousel-caption d-sm-block text-danger font-weight-bold">
+          <h5>
+            {{i.category}}
+          </h5>
+          <p>{{i.blog_description_1|truncatewords:10}}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  <br />
+  <div
+    class="jumbotron p-4 p-md-5 text-white rounded"
+    style="background-color: purple;"
+  >
+    <div class="col-md-6 px-0">
+      <p class="float-right" style="font-size: larger;">
+        <b> Most viewed content ({{maxvw.views_count}} Views)</b>
+      </p>
+      <br />
+      <h2 class="font-italic">
+        {{maxvw.blog_name}}
+      </h2>
+      <span><b>By - {{maxvw.author}} </b></span>
+      <p class="lead my-3">
+        <b> {{maxvw.blog_description_1|truncatewords:30}}</b>
+        <a
+          href="{%url 'content:blog_read' maxvw.slug %}"
+          class="text-primary font-weight-bold font-italic"
+          >Continue reading.</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    {% for i in blog reversed %}
+    <div class="col-md-6">
+      <div
+        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+      >
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary"
+            >{{i.category}}</strong
+          >
+          <h5 class="mb-0">{{i.blog_name}}</h5>
+          <div class="mb-1 text-muted">
+            {{i.pub_date}} , By - {{i.author}}
+          </div>
+          <p class="card-text mb-auto">
+            {{i.blog_description_1|truncatewords:10}}<b
+              >{{i.views_count}} Views</b
+            >
+          </p>
+          <div>
+            <a
+              href="{%url 'content:blog_read' i.slug %}"
+              class="btn btn-light"
+              style="border-color: purple; color: purple;"
+              >Continue reading</a
+            >
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img
+            class="bd-placeholder-img"
+            src="/media/{{i.img}}"
+            width="200"
+            height="250"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          />
+        </div>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+  </div>
+  <div class="row md-2">
+    {% endif %} {% endfor %}
+  </div>
+  <p>
+    <a href="#"><b>Back to top</b></a>
+  </p>
+</div>
+{% endblock %}

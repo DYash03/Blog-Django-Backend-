@@ -1,0 +1,191 @@
+{% extends 'base.html' %} {% block body %} {% load humanize %} {% load extras %}
+<br />
+<br />
+<div class="container">
+  <h2 class="pb-4 mb-4 font-italic d-inline">
+    {{blog.blog_name}}
+  </h2>
+  <h4 class="d-inline">({{blog.views_count}} Views)</h4>
+  <br />
+  <p class="d-inline">
+    {{blog.pub_date}} by
+    <h6 class="d-inline"> {{blog.author}}</h6>
+  </p>
+  <hr />
+  <div>
+    <br />
+    <img
+      class="bd-placeholder-img float-left mr-3"
+      src="/media/{{blog.img}}"
+      width="300"
+      height="250"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid
+                              slice"
+      focusable="false"
+      role="img"
+      aria-label="Placeholder: Thumbnail"
+    />
+    {% if user.is_authenticated %}
+    <div
+      class="fb-like"
+      data-href="http://127.0.0.1:8000/{{blog.slug}}"
+      data-width="400"
+      data-layout="button_count"
+      data-action="like"
+      data-size="large"
+      data-share="true"
+    ></div>
+    <br />
+
+    <p>{{blog.blog_description_1}}</p>
+    <p>
+      {{blog.blog_description_2}}
+    </p>
+    {% if blog.sub_heading_optional is null %} {% else %}
+    <h4>{{blog.sub_heading_optional}}</h4>
+    {% endif %} {% if blog.blog_description_optional is null %} {% else %}
+    <p>
+      {{blog.blog_description_optional}}
+    </p>
+    {% endif %} {% if blog.link_optional is null %}
+  </div>
+  {% else %}
+  <p>
+    <a target="_blank" href="{{blog.link_optional}}"
+      >{{blog.link_name_optional}}</a
+    >
+  </p>
+  {% endif %} {% else %}
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Blogera</h1>
+      <p class="lead">
+        In order to read more, like, share or comment login first.
+      </p>
+    </div>
+  </div>
+  <p>{{blog.blog_description_1}}........</p>
+</div>
+{% endif %}
+<hr />
+<div class="container">
+  <h2>Comments ({{comments.count}})</h2>
+  <div class="my-2">
+    {% if user.is_authenticated %}
+    <form action="/postComment" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="comment">Post your comment here:</label>
+        <textarea
+          id="comment"
+          name="comment"
+          placeholder="Enter comment here"
+          class="form-control"
+          cols="30"
+          rows="5"
+        ></textarea>
+      </div>
+      <input
+        type="hidden"
+        id="postSno"
+        name="postSno"
+        value="{{blog.blg_id}}"
+      />
+      <input type="hidden" name="ParentSno" value="" />
+      <button type="submit" 
+      style="background: purple;"
+      class="btn float-right text-light">
+        Submit
+      </button>
+    </form>
+    <br />
+    <br />
+    {% endif %}
+  </div>
+  {% for comment in comments %}
+  <div class="row my-3 bg-light border border-dark p-1 mx-0">
+    <div class="col-md-1">
+      <img
+        src="/static/img/user.jpg"
+        alt="..."
+        class="d-block"
+        width="50"
+        height="50"
+      />
+    </div>
+    <div class="col-md-11">
+      <b> {{comment.user.username}}</b>
+      <div>{{comment.timestamp | naturaltime}}</div>
+      <div>{{comment.comment}}</div>
+      <div class="reply mx-0">
+        <button
+          class="btn text-light my-2 btn-sm"
+          style="background: purple;"
+          type="button"
+          data-toggle="collapse"
+          data-target="#replyBox{{comment.sno}}"
+          aria-expanded="false"
+          aria-controls="replyBox{{comment.sno}}"
+        >
+          View Replies
+        </button>
+        <div class="collapse" id="replyBox{{comment.sno}}">
+          <div class="card card-body my-2">
+            {% if user.is_authenticated %}
+            <form action="/postComment" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <textarea
+                  id="comment"
+                  name="comment"
+                  placeholder="Enter reply here"
+                  class="form-control"
+                  cols="30"
+                  rows="3"
+                ></textarea>
+                <input type="hidden" name="ParentSno" value="{{comment.sno}}" />
+              </div>
+              <input
+                type="hidden"
+                id="postSno"
+                name="postSno"
+                value="{{blog.blg_id}}"
+              />
+              <button type="submit" class="btn text-light float-right"
+              style="background: purple;">
+                Submit
+              </button>
+            </form>
+            {% else %}
+            <p>Login to post reply.</p>
+            {% endif %}
+            <div class="replies bg-light my-2">
+              {% for reply in replyDict|get_val:comment.sno%}
+              <div class="row my-3 bg-light border border-dark p-1 mx-0">
+                <div class="col-md-1">
+                  <img
+                    src="/static/img/user.jpg"
+                    alt="..."
+                    class="d-block"
+                    width="50"
+                    height="50"
+                  />
+                </div>
+                <div class="col-md-11">
+                  <b> {{reply.user.username}}</b>
+                  <div>{{reply.timestamp | naturaltime}}</div>
+                  <div>{{reply.comment}}</div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

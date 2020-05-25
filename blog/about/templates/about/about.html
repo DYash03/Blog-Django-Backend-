@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block body %}
+<main role="main">
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron mb-0">
+    <div class="container">
+      <h1 class="text-center display-4">Blogera</h1>
+      <p>Blogera is one of the most famous blog reading platform. Allmost every single type of blog is available on Blogera written by some very fine authors which are specialist in there respective field. These authors have shared their experience through these blogs. Thus each blog on our website reflects their passion, their experience, their reality and their love for our readers.  
+      </p>Almost every single category of blogs are available on our website that includes blogs related to Technology, Culture, Business, Politics, Opinion, Food, Education, Science, Healty, Style, Travel and lot more.
+      All these blogs are available free of cost for our readers. Thus anyone can gain knowledge in any respective field from their specialists without giving anything on our website.
+      <p>
+        
+      </p>Today Blogera is recognised as the best blog reading website by every social platform which includes Facebook, Twitter, Microsoft, Amazon, Pinterest and many more. Blogera is thus awarded as the best blog reading website of the year 2018 and 2019. Today every successfull person wants to be a part of our Author cell. Every one wants to share their experience, their experties in their field of work through our website. 
+      </p>
+      <p>Blogera is constantly updating its Author cell to provide more and better blogs to our readers.</p>
+      <strong>Thus enjoy discovering and Happy Reading.</strong>
+    </div>
+  </div>
+  <main role="main">
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <h1 class="text-center">Our Authors</h1>
+        <br>
+        <div class="row">
+          {% for i in auth %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <img
+                src="/media/{{i.img}}"
+                class="bd-placeholder-img card-img-top"
+                width="100%"
+                height="225"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              />
+              <div class="card-body">
+                <h5>{{i.author_name}}</h5>
+                <p class="card-text">
+                  {{i.About|truncatewords:25}}
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <a
+                    href="{%url 'about:author' i.slug %}"
+                    class="btn btn-light"
+                    style="border-color: purple; color: purple;"
+                    >More</a
+                  >
+                </div>
+              </div>
+            </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+          </div>
+          <div class="row">
+            {% endif %} {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="jumbotron mb-0">
+    <div class="container">
+      <h1 class="text-center">Owner's Desk</h1>
+      <br>
+      <img src="/static/img/author.jpg" alt="..." class="d-block float-left mr-3" width="150" height="150" />
+      <strong>This website belongs to Mr. Yash Dixit.</strong>
+      <p>Yash Dixit (born April 03, 2000), is an
+        Indian computer science engineer, programmer, philanthropist, and technology entrepreneur. In 2010, he co-founded
+        Apple
+        Inc., which later became the world's largest information technology company by revenue and the largest company in
+        the
+        world by market capitalization. Through their work at Apple in the 1970s and 1980s, he and Apple co-founder Steve
+        Jobs
+        are widely recognized as two prominent pioneers of the personal computer revolution.</p>
+      <p>In 2011, Dixit started developing the Apple I into the computer that launched Apple when he and Jobs first
+        began marketing it the following year. He primarily designed the Apple II in 2013, known as one of the first
+        highly
+        successful mass-produced microcomputers, while Jobs oversaw the development of its foam-molded plastic case and
+        early Apple employee Rod Holt developed the switching power supply. He then pursued several other businesses and
+        philanthropic ventures throughout his career, focusing largely on
+        technology in K–12 schools.</p>
+  
+    </div>
+  </div>
+
+</main>
+{% endblock %}

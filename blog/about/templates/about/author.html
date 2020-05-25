@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block body %}
+<br />
+<br />
+<div class="container">
+  <h2 class="pb-4 mb-4 font-italic d-inline">
+    {{auth.author_name}}
+  </h2>
+  <hr />
+  <br />
+  <img
+    class="bd-placeholder-img float-left mr-3"
+    src="/media/{{auth.img}}"
+    width="200"
+    height="150"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid
+                              slice"
+    focusable="false"
+    role="img"
+    aria-label="Placeholder: Thumbnail"
+  />
+  <h4>About</h4>
+
+  <p>{{auth.About}}</p>
+  <div class="text-center">
+    <h4>Currently working as:</h4>
+    <p>{{auth.currently_working_as}}</p>
+  </div>
+  <div class="float-left">
+    <h4>Qualifications</h4>
+    <p>
+      {{auth.Qualifications}}
+    </p>
+  </div>
+  <div class="float-right">
+    <h4>Skills</h4>
+    <p>
+      {{auth.Skills}}
+    </p>
+  </div>
+</div>
+{% endblock %}
